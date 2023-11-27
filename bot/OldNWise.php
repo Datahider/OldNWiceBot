@@ -8,7 +8,10 @@ use losthost\OldNWise\service\Switcher;
 
 
 class OldNWise extends Bot {
-    
+
+    const BG_STARTER_UNIX           = '/usr/bin/php8.1 "'. __DIR__. '/starter.php" %s %s >/dev/null 2>&1 &';
+
+
     static public function showInitialMessage() {
         $view = new BotView(OldNWise::$api, OldNWise::$chat->id);
         $view->show('initial-message', null, ['chat_id' => OldNWise::$chat->id]);
