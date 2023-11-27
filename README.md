@@ -1,2 +1,2 @@
-# OldNWiceBot
+# OldNWiseBot
 Two factor auth bot
