@@ -6,6 +6,7 @@ use losthost\OldNWise\model\server;
 use losthost\telle\model\DBUser;
 use losthost\telle\model\DBPendingJob;
 use losthost\OldNWise\service\BackSwitcher;
+use Exception;
 
 class Switcher {
     
@@ -52,7 +53,7 @@ class Switcher {
                     $this->armBackSwitcher();
                 }
                 $server->switched_till = time()+$server->access_seconds;
-                error_log("$server->name SWITCHED BY $this->user->first_name");
+                error_log("$server->name SWITCHED BY ". $this->user->first_name);
             } catch (Exception $e) {
                 error_log($e->getMessage());
             }
@@ -78,7 +79,7 @@ class Switcher {
                     $server->primary_ip,
                     true
             );
-            error_log("$server->name DROPPED BY $this->user->first_name");
+            error_log("$server->name DROPPED BY ". $this->user->first_name);
         }
     }
         
