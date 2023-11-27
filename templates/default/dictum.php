@@ -1,0 +1,3 @@
+<?=$text;?>
+
+<i><?=$author_name;?></i>

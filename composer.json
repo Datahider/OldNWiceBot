@@ -1,0 +1,21 @@
+{
+    "name": "losthost/oldnwise-bot",
+    "description": "Description of project OldNWiseBot (v2).",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Petros Ioannidis",
+            "email": "pio@pio.su"
+        }
+    ],
+    "require": {
+        "losthost/telle": "v4.0.4a",
+        "losthost/db": "* v3.0.9-alpha",
+        "losthost/bot-view": "v2.2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "losthost\\OldNWise\\": "bot/"
+        }
+    }
+}
