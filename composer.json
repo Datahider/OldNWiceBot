@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "losthost/telle": "v4.0.4a",
+        "losthost/telle": "^v4.0.4a",
         "losthost/db": "* v3.0.9-alpha",
         "losthost/bot-view": "v2.2.0"
     },

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e84533ae82625855c9f48a7acc4dbb9",
+    "content-hash": "eb382f4691ab3112cd643541d95602d2",
     "packages": [
         {
             "name": "dragonmantank/cron-expression",
@@ -161,16 +161,16 @@
         },
         {
             "name": "losthost/telle",
-            "version": "v4.0.4a",
+            "version": "v4.0.5a",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Datahider/Telle.git",
-                "reference": "561035f9a342459235e19f1d432d2ea3e0388ec8"
+                "reference": "7715d9bb08b41d511b03c17bebe27a4109e6d8c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Datahider/Telle/zipball/561035f9a342459235e19f1d432d2ea3e0388ec8",
-                "reference": "561035f9a342459235e19f1d432d2ea3e0388ec8",
+                "url": "https://api.github.com/repos/Datahider/Telle/zipball/7715d9bb08b41d511b03c17bebe27a4109e6d8c4",
+                "reference": "7715d9bb08b41d511b03c17bebe27a4109e6d8c4",
                 "shasum": ""
             },
             "require": {
@@ -195,9 +195,9 @@
             "description": "A simple template for extreme complex bot",
             "support": {
                 "issues": "https://github.com/Datahider/Telle/issues",
-                "source": "https://github.com/Datahider/Telle/tree/v4.0.4a"
+                "source": "https://github.com/Datahider/Telle/tree/v4.0.5a"
             },
-            "time": "2023-11-23T08:37:48+00:00"
+            "time": "2023-11-27T21:47:29+00:00"
         },
         {
             "name": "losthost/template-helper",

@@ -50,7 +50,6 @@ class Switcher {
                             $server->secondary_ip,
                             false
                     ); 
-                    $this->armBackSwitcher();
                 }
                 $server->switched_till = time()+$server->access_seconds;
                 error_log("$server->name SWITCHED BY ". $this->user->first_name);
@@ -60,6 +59,8 @@ class Switcher {
             
             $server->unlock();
         }
+
+        $this->armBackSwitcher();
     }
     
     public function dropServers() {
@@ -122,7 +123,10 @@ class Switcher {
     }
     
     protected function armBackSwitcher() {
-        new DBPendingJob(date_create_immutable(), true, BackSwitcher::class);
+        $jobs = new DBView('SELECT id FROM [telle_pending_jobs] WHERE job_class = ? AND was_started IS NULL LIMIT 1', [BackSwitcher::class]);
+        if ($jobs->next()) {
+            new DBPendingJob(date_create_immutable(), true, BackSwitcher::class);
+        }
     }
     
 }
