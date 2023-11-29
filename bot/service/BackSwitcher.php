@@ -7,6 +7,7 @@ use losthost\OldNWise\service\Switcher;
 use losthost\DB\DBView;
 use losthost\DB\DBValue;
 use losthost\telle\model\DBPendingJob;
+use losthost\DB\DB;
 
 
 class BackSwitcher extends AbstractBackgroundProcess {
@@ -58,7 +59,7 @@ class BackSwitcher extends AbstractBackgroundProcess {
     public function lock_async() {
         
         $sth = DB::prepare('UPDATE [telle_bot_params] SET value = "LOCKED" WHERE name = "bs_lock" AND value = ""');
-        $sth->execute([$this->id]);
+        $sth->execute();
         
         if ($sth->rowCount() == 1) {
             return true;
@@ -78,7 +79,7 @@ class BackSwitcher extends AbstractBackgroundProcess {
     
     public function unlock() {
         $sth = DB::prepare('UPDATE [telle_bot_params] SET value = "" WHERE name = "bs_lock"');
-        $sth->execute([$this->id]);
+        $sth->execute();
     }
     
 }
