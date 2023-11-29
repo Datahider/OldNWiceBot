@@ -17,7 +17,7 @@ class BackSwitcher extends AbstractBackgroundProcess {
         if (!$this->lock_async()) {
             sleep(2);
             if (!$this->lock_async()) {
-                $this->setResult('Another instance of BackSwitcher is already running.');
+                $this->setResult('Skipped.');
                 return;
             }
         }
@@ -27,8 +27,8 @@ class BackSwitcher extends AbstractBackgroundProcess {
             sleep(1);
         }
         
-        $this->unlock();
         $this->setResult('Finished.');
+        $this->unlock();
     }
     
     protected function iteration() {
