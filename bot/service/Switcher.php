@@ -125,7 +125,10 @@ class Switcher {
     protected function armBackSwitcher() {
         $jobs = new DBView('SELECT id FROM [telle_pending_jobs] WHERE job_class = ? AND was_started IS NULL LIMIT 1', [BackSwitcher::class]);
         if (!$jobs->next()) {
-            new DBPendingJob(date_create_immutable(), true, BackSwitcher::class);
+            $a_second = date_interval_create_from_date_string('1 second');
+            $job = new DBPendingJob(date_create_immutable()->add($a_second), true, BackSwitcher::class);
+            $job->job_args = $job->id;
+            $job->write();
         }
     }
     

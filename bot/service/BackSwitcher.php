@@ -6,15 +6,28 @@ use losthost\OldNWise\model\server;
 use losthost\OldNWise\service\Switcher;
 use losthost\DB\DBView;
 use losthost\DB\DBValue;
+use losthost\telle\model\DBPendingJob;
 
 
 class BackSwitcher extends AbstractBackgroundProcess {
     
     public function run() {
         
+        if (!$this->lock_async()) {
+            sleep(2);
+            if (!$this->lock_async()) {
+                $this->setResult('Another instance of BackSwitcher is already running.');
+                return;
+            }
+        }
+        
+        $this->setResult('Running...');
         while($this->iteration()) {
             sleep(1);
         }
+        
+        $this->unlock();
+        $this->setResult('Finished.');
     }
     
     protected function iteration() {
@@ -35,4 +48,37 @@ class BackSwitcher extends AbstractBackgroundProcess {
         }
         return false;
     }
+    
+    protected function setResult(string $result) {
+        $job = new DBPendingJob((int)$this->param);
+        $job->result = $result;
+        $job->write();
+    }
+    
+    public function lock_async() {
+        
+        $sth = DB::prepare('UPDATE [telle_bot_params] SET value = "LOCKED" WHERE name = "bs_lock" AND value = ""');
+        $sth->execute([$this->id]);
+        
+        if ($sth->rowCount() == 1) {
+            return true;
+        }
+        return false;
+    }
+    
+    public function lock(int $timeout=900) { // 15 min default timeout
+        foreach (range(1, $timeout*10) as $iteration) {
+            if ($this->lock_async()) {
+                return;
+            }
+            usleep(100000); // ждем 0.1 сек
+        }
+        throw new Exception("Cannot lock BackSwitcher.", 10);
+    }
+    
+    public function unlock() {
+        $sth = DB::prepare('UPDATE [telle_bot_params] SET value = "" WHERE name = "bs_lock"');
+        $sth->execute([$this->id]);
+    }
+    
 }

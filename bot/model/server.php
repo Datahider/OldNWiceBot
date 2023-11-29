@@ -33,16 +33,15 @@ class server extends DBObject {
     }
     
     public function lock_async() {
-        DB::exec('LOCK TABLES '. $this->tableName(). ' WRITE;');
-        $locked = false;
-        $this->fetch();
-        if (!$this->is_locked) {
-            $this->is_locked = true;
-            $this->write();
-            $locked = true;
+        
+        $sth = DB::prepare('UPDATE '. static::tableName(). ' SET is_locked = 1 WHERE id = ? AND is_locked = 0');
+        $sth->execute([$this->id]);
+        
+        if ($sth->rowCount() == 1) {
+            $this->fetch();
+            return true;
         }
-        DB::exec("UNLOCK TABLES;");
-        return $locked;
+        return false;
     }
     
     public function lock(int $timeout=900) { // 15 min default timeout

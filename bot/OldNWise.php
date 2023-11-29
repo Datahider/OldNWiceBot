@@ -5,11 +5,13 @@ use losthost\telle\Bot;
 use losthost\BotView\BotView;
 use losthost\DB\DBValue;
 use losthost\OldNWise\service\Switcher;
+use losthost\telle\model\DBBotParam;
 
 
 class OldNWise extends Bot {
 
-    const BG_STARTER_UNIX           = '/usr/bin/php8.1 "'. __DIR__. '/starter.php" %s %s >/dev/null 2>&1 &';
+    const BG_STARTER_UNIX           = 'php "vendor/losthost/telle/src/starter.php" %s %s >/dev/null 2>&1 &';
+    const BG_STARTER_WINDOWS        = 'start /b php "vendor/losthost/telle/src/starter.php" %s %s';
 
 
     static public function showInitialMessage() {
@@ -45,6 +47,9 @@ class OldNWise extends Bot {
     protected static function initLast() {
         parent::initLast();
         
+        $bs_lock = new DBBotParam('bs_lock', '');
+        $bs_lock->value = '';
+        $bs_lock->write();
         
     }
 }
