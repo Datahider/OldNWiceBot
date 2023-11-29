@@ -27,8 +27,8 @@ class BackSwitcher extends AbstractBackgroundProcess {
             sleep(1);
         }
         
-        $this->setResult('Finished.');
         $this->unlock();
+        $this->setResult('Finished.');
     }
     
     protected function iteration() {

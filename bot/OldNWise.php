@@ -46,6 +46,11 @@ class OldNWise extends Bot {
     
     protected static function initLast() {
         parent::initLast();
+    }
+    
+    public static function setup() {
+        
+        parent::setup();
         
         $bs_lock = new DBBotParam('bs_lock', '');
         $bs_lock->value = '';
