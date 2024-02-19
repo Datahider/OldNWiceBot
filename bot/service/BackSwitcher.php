@@ -38,8 +38,13 @@ class BackSwitcher extends AbstractBackgroundProcess {
         while ($server_ids->next()) {
             $server = new server(['id' => $server_ids->id]);
             $server->lock();
-            Switcher::switcher('root', $server->connection_host, $server->host_fingerprint, $server->connection_port, $server->secondary_ip, $server->primary_ip, false);
-            $server->switched_till = null;
+            try {
+                Switcher::switcher('root', $server->connection_host, $server->host_fingerprint, $server->connection_port, $server->secondary_ip, $server->primary_ip, false);
+                $server->switched_till = null;
+            } catch (Exception $exc) {
+                error_log($e->getMessage());
+            }
+
             $server->unlock();
         }
 
