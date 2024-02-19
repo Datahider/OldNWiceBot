@@ -102,6 +102,9 @@ class Switcher {
         $ssh_dir = exec('cd ~'.  get_current_user().'; pwd').'/.ssh/';
 
         $connection = ssh2_connect($host, 22);
+        if (!$connection) {
+            throw new Exception("Can't connect to host $host");
+        }
         $got_fingerprint = ssh2_fingerprint($connection);
         if ($got_fingerprint == $fingerprint) {
             $public_key_file = $ssh_dir.'id_rsa.pub';
