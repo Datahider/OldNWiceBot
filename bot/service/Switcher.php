@@ -129,7 +129,8 @@ class Switcher {
         $jobs = new DBView('SELECT id FROM [telle_pending_jobs] WHERE job_class = ? AND was_started IS NULL LIMIT 1', [BackSwitcher::class]);
         if (!$jobs->next()) {
             $a_second = date_interval_create_from_date_string('1 second');
-            $job = new DBPendingJob(date_create_immutable()->add($a_second), true, BackSwitcher::class);
+            $backswitch_in_background = new \losthost\telle\model\DBBotParam('backswitch_in_background', false);
+            $job = new DBPendingJob(date_create_immutable()->add($a_second), $backswitch_in_background, BackSwitcher::class);
             $job->job_args = $job->id;
             $job->write();
         }
