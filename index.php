@@ -24,6 +24,7 @@ dictum_author::initDataStructure();
 server::initDataStructure();
 user_server::initDataStructure();
 
+OldNWise::addHandler(losthost\OldNWise\handlers\CommandId::class);
 OldNWise::addHandler(CommandDictumHandler::class);
 OldNWise::addHandler(MessageNotHandledHandle::class);
 
